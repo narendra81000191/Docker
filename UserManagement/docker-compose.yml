@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_DATABASE: hibernatedb
+      MYSQL_USER: user1
+      MYSQL_PASSWORD: user@123
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  app:
+    image: user-management-app
+    container_name: user-management
+    ports:
+      - "8081:8080"
+    depends_on:
+      mysql:
+        condition: service_healthy
