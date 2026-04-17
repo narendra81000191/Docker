@@ -1,0 +1,40 @@
+version: "3.9"
+
+services:
+
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    environment:
+      MYSQL_DATABASE: hibernatedb
+      MYSQL_USER: user1
+      MYSQL_PASSWORD: user@123
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3306:3306"
+    networks:
+      - user-network
+
+  backend:
+    image: user-management-app
+    container_name: user-management
+    depends_on:
+      - mysql
+    ports:
+      - "8081:8080"
+    networks:
+      - user-network
+
+  frontend:
+    image: frontend-app
+    container_name: frontend
+    ports:
+      - "4200:80"
+    depends_on:
+      - backend
+    networks:
+      - user-network
+
+networks:
+  user-network:
+    driver: bridge
