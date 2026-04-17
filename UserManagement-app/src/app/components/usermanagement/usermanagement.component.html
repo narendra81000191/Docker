@@ -1,0 +1,19 @@
+<button type="button" class="btn btn-success" (click)="adduser()">Adduser</button> 
+<table border="1" width="100%">
+<button type="button" class="btn btn-warning" (click)="deleteUser(2)">Deleteuser</button> 
+<table border="1" width="100%">
+
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Role</th>
+  </tr>
+
+  <tr *ngFor="let user of userList">
+    <td>{{ user.uid }}</td>
+    <td>{{ user.uname }}</td>
+    <td>{{ user.email }}</td>
+    <td>{{ user.role }}</td>
+  </tr>
+</table>
